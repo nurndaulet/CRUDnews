@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    {% block style %}{% endblock %}
+</head>
+<body>
+    <div class="phone">
+    <header>
+        <nav>
+            <ul class="nav-menu">
+                <li class="left-nav">
+                    <a href="{% url 'news' %}" class="nav-words">News</a>
+                    <a href="{% url 'AddNews' %}" class="nav-words">AddNews</a>
+                </li>
+                {% if request.user.is_authenticated %}
+                <li class="right-nav">
+                    <a href="#"><div>{{ request.user.username }}</div></a>
+                    <a href="{% url 'logout' %}"><div class="button">Exit</div></a>
+                </li>
+                {% else %}
+                <li class="right-nav">
+                    <a href="{% url 'login' %}"><div class="button">login</div></a>
+                    <a href="{% url 'register' %}"><div class="button">register</div></a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+    </div>
+</body>
+</html>
